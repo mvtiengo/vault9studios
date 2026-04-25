@@ -124,12 +124,12 @@
     }
 
     .logo-img {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      border: 2px solid var(--gold-mid);
-      object-fit: cover;
-      box-shadow: 0 0 12px rgba(232,184,75,0.3);
+      object-fit: contain;
+      background: transparent;
+      filter: drop-shadow(0 0 8px rgba(232,184,75,0.4));
     }
 
     .logo-text {
@@ -727,6 +727,24 @@
       text-transform: uppercase;
     }
 
+    .ig-photo {
+      aspect-ratio: 1;
+      overflow: hidden;
+      display: block;
+      position: relative;
+    }
+
+    .ig-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .ig-photo:hover img { transform: scale(1.08); }
+
     /* ── CONTACT ── */
     #contato {
       background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-deep) 100%);
@@ -852,7 +870,7 @@
   <header class="hero">
     <nav class="nav">
       <a class="logo-wrap" href="#">
-        <img class="logo-img" src="logo.png" alt="Vault.9 Studios" onerror="this.style.display='none'" />
+        <img class="logo-img" src="logo.png" alt="Vault.9 Studios" />
         <div class="logo-text">VAULT<span>.9 STUDIOS</span></div>
       </a>
       <ul class="nav-links">
@@ -976,93 +994,65 @@
 
         <div class="catalog-card">
           <div class="card-img">
-            <div class="card-placeholder ph-2">
-              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
-                <circle cx="22" cy="18" r="10" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-                <path d="M12 38 Q22 30 32 38 L36 44 H8 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              </svg>
-              <span class="ph-label">fotos/peca-02.png</span>
-            </div>
+            <img src="fotos/peca-02.png" alt="Detalhe — Arma Beretta" />
           </div>
           <div class="card-body">
-            <div class="card-tag">Coleção</div>
-            <div class="card-title">Busto Fantasia</div>
-            <div class="card-desc">Busto escala 1:8. Sombreamento profundo e lavagem de tinta.</div>
+            <div class="card-tag">Detalhe de Pintura</div>
+            <div class="card-title">Beretta — Detalhe</div>
+            <div class="card-desc">Textura metálica pintada à mão com técnica de chipping e NMM.</div>
             <div class="card-footer">
-              <span class="card-detail">~15cm · 1:8</span>
-              <span class="card-status">Sob Encomenda</span>
+              <span class="card-detail">Micro-detalhe</span>
+              <span class="card-status sold">Vendida</span>
             </div>
           </div>
         </div>
 
         <div class="catalog-card">
           <div class="card-img">
-            <div class="card-placeholder ph-3">
-              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
-                <rect x="8" y="6" width="28" height="36" rx="3" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-                <path d="M15 20 L29 20 M15 28 L24 28" stroke="#e8b84b" stroke-width="1.2"/>
-              </svg>
-              <span class="ph-label">fotos/peca-03.png</span>
-            </div>
+            <img src="fotos/peca-03.png" alt="Detalhe — Base e Pés" />
           </div>
           <div class="card-body">
-            <div class="card-tag">RPG & Miniaturas</div>
-            <div class="card-title">Mini de Mesa</div>
-            <div class="card-desc">Escala 28mm, compatível com D&D e Pathfinder.</div>
+            <div class="card-tag">Detalhe de Base</div>
+            <div class="card-title">Base — Resident Evil</div>
+            <div class="card-desc">Base diorama com lettering pintado, couro vermelho e metal enferrujado.</div>
             <div class="card-footer">
-              <span class="card-detail">28mm · Base inclusa</span>
-              <span class="card-status">Disponível</span>
+              <span class="card-detail">Base Diorama</span>
+              <span class="card-status sold">Vendida</span>
             </div>
           </div>
         </div>
 
         <div class="catalog-card">
           <div class="card-img">
-            <div class="card-placeholder ph-4">
-              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
-                <path d="M22 4 L42 38 H2 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-                <circle cx="22" cy="26" r="6" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              </svg>
-              <span class="ph-label">fotos/peca-04.png</span>
-            </div>
+            <img src="fotos/peca-04.png" alt="Detalhe — Umbrella Corporation" />
           </div>
           <div class="card-body">
-            <div class="card-tag">Encomenda Especial</div>
-            <div class="card-title">Criatura Fantástica</div>
-            <div class="card-desc">Dragão, demônio, golem — modelos complexos com olhos de resina.</div>
+            <div class="card-tag">Detalhe de Cenário</div>
+            <div class="card-title">Umbrella Corp.</div>
+            <div class="card-desc">Tábuas de madeira pintadas com oxidação e logo Umbrella em relevo.</div>
             <div class="card-footer">
-              <span class="card-detail">Alta Complexidade</span>
-              <span class="card-status sold">Consulte</span>
+              <span class="card-detail">Diorama</span>
+              <span class="card-status sold">Vendida</span>
             </div>
           </div>
         </div>
 
         <div class="catalog-card">
           <div class="card-img">
-            <div class="card-placeholder ph-5">
-              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
-                <path d="M8 8 L36 8 L36 32 L22 42 L8 32 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-                <path d="M22 8 L22 30" stroke="#e8b84b" stroke-width="1.2"/>
-              </svg>
-              <span class="ph-label">fotos/peca-05.png</span>
-            </div>
+            <img src="fotos/peca-05.png" alt="Detalhe — Erva Verde" />
           </div>
           <div class="card-body">
-            <div class="card-tag">Presente</div>
-            <div class="card-title">Presente Exclusivo</div>
-            <div class="card-desc">Peça única em caixa especial com cartão personalizado.</div>
+            <div class="card-tag">Detalhe de Cenário</div>
+            <div class="card-title">Erva Verde</div>
+            <div class="card-desc">Mini-planta em resina pintada à mão — ícone do universo Resident Evil.</div>
             <div class="card-footer">
-              <span class="card-detail">Embalagem Especial</span>
-              <span class="card-status">Disponível</span>
+              <span class="card-detail">Micro-detalhe</span>
+              <span class="card-status sold">Vendida</span>
             </div>
           </div>
         </div>
 
       </div><!-- /catalog-right -->
-    </div>
-
-    <div class="catalog-notice">
-      <p>📷 Substitua os espaços cinzas pelas suas fotos — veja o README para instruções</p>
     </div>
   </section>
 
@@ -1115,11 +1105,11 @@
     </a>
     <p class="ig-sub">Acompanhe o processo de pintura, novos projetos e peças prontas no nosso Instagram.</p>
     <div class="instagram-grid">
-      <div class="ig-placeholder"><span>foto</span></div>
-      <div class="ig-placeholder"><span>foto</span></div>
-      <div class="ig-placeholder"><span>foto</span></div>
-      <div class="ig-placeholder"><span>foto</span></div>
-      <div class="ig-placeholder"><span>foto</span></div>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="ig-photo"><img src="fotos/ig-01.png" alt="Vault.9 Studios"></a>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="ig-photo"><img src="fotos/ig-02.png" alt="Vault.9 Studios"></a>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="ig-photo"><img src="fotos/ig-03.png" alt="Vault.9 Studios"></a>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="ig-photo"><img src="fotos/ig-04.png" alt="Vault.9 Studios"></a>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="ig-photo"><img src="fotos/ig-05.png" alt="Vault.9 Studios"></a>
     </div>
     <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="btn-primary">Seguir no Instagram</a>
   </div>
@@ -1167,7 +1157,7 @@
   <div class="gold-line"></div>
   <footer>
     <div class="footer-logo">VAULT<span>.9 STUDIOS</span></div>
-    <div class="footer-copy">© 2026 Vault.9 Studios · Arte em Resina Impressa e Pintada à Mão</div>
+    <div class="footer-copy">© 2025 Vault.9 Studios · Arte em Resina Impressa e Pintada à Mão</div>
     <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="footer-ig">@vault.9studios ↗</a>
   </footer>
 
