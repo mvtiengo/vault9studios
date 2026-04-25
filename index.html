@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vault.9 Studios — Bonecos de Resina Artesanais</title>
+  <meta name="description" content="Figuras de resina impressas em 3D e pintadas à mão. Cada peça é única. Arte que você pode segurar." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-deep:   #0e1e30;
+      --blue-dark:   #152840;
+      --blue-mid:    #1e3a58;
+      --blue-steel:  #2d5278;
+      --blue-light:  #3d6a94;
+      --blue-muted:  #4a7ba8;
+
+      --gold-bright: #e8b84b;
+      --gold-mid:    #d4941a;
+      --gold-dark:   #a8720f;
+      --gold-pale:   #f0cc7a;
+      --gold-dim:    #7a5810;
+
+      --rust:        #8b3a1a;
+      --rust-light:  #b54e25;
+
+      --text:        #c8daea;
+      --text-muted:  #6a8aaa;
+      --text-dim:    #3a5570;
+      --white:       #e8f0f8;
+
+      --border:      rgba(45, 82, 120, 0.4);
+      --border-gold: rgba(232, 184, 75, 0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blue-deep);
+      color: var(--text);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: overlay;
+    }
+
+    .gold-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-mid), var(--gold-bright), var(--gold-mid), transparent);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 65% at 75% 45%, rgba(232,184,75,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 15% 70%, rgba(139,58,26,0.12) 0%, transparent 55%),
+        linear-gradient(175deg, #0e1e30 0%, #152840 40%, #0a1620 100%);
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,184,75,0.12);
+      box-shadow:
+        0 0 0 40px  rgba(232,184,75,0.05),
+        0 0 0 90px  rgba(232,184,75,0.03),
+        0 0 0 150px rgba(232,184,75,0.02),
+        0 0 0 220px rgba(232,184,75,0.01);
+      z-index: 1;
+    }
+
+    .nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 4rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(14,30,48,0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-mid);
+      object-fit: cover;
+      box-shadow: 0 0 12px rgba(232,184,75,0.3);
+    }
+
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-bright);
+      line-height: 1;
+    }
+
+    .logo-text span { color: var(--white); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold-bright); }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      max-width: 860px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-mid);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-mid));
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 11vw, 9.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    h1 em {
+      color: var(--gold-bright);
+      font-style: normal;
+      text-shadow: 0 0 40px rgba(232,184,75,0.4);
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-top: 1.8rem;
+      line-height: 1.55;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.35s ease both;
+    }
+
+    .btn-primary {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue-deep);
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      display: inline-block;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(232,184,75,0.25);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--gold-pale), var(--gold-bright));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232,184,75,0.4);
+    }
+
+    .btn-ghost {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--border-gold);
+      transition: all 0.3s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold-mid);
+      color: var(--gold-bright);
+      background: rgba(232,184,75,0.05);
+    }
+
+    .hero-footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 1.8rem 4rem;
+      border-top: 1px solid var(--border);
+      background: rgba(14,30,48,0.5);
+    }
+
+    .hero-stat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.08em;
+      color: var(--gold-bright);
+      text-shadow: 0 0 20px rgba(232,184,75,0.35);
+      margin-bottom: 0.1em;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden;
+      background: var(--blue-mid);
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 0.85rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.3em;
+      color: var(--blue-light);
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+
+    .marquee-item .dot { color: var(--gold-mid); margin-right: 2.5rem; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 8rem 4rem; }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold-mid);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-gold), transparent);
+      max-width: 180px;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 em { color: var(--gold-bright); font-style: normal; }
+
+    /* ── ABOUT ── */
+    #sobre {
+      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-deep) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .about-text p strong { color: var(--gold-pale); font-weight: 400; }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 2.8rem 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--gold-dark);
+      line-height: 1;
+    }
+
+    .step-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .step-desc { font-size: 0.92rem; color: var(--text-muted); font-style: italic; }
+
+    /* ── CATALOG ── */
+    #catalogo { background: var(--blue-deep); border-bottom: 1px solid var(--border); }
+
+    .catalog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(45,82,120,0.25);
+    }
+
+    .catalog-card {
+      background: var(--blue-dark);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .catalog-card:nth-child(1) { grid-column: span 2; }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .catalog-card:nth-child(1) .card-img { aspect-ratio: 16/7; }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+      display: block;
+    }
+
+    .catalog-card:hover .card-img img { transform: scale(1.05); }
+
+    .card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .ph-1 { background: linear-gradient(135deg, #152840 0%, #1e3a5a 50%, #152840 100%); }
+    .ph-2 { background: linear-gradient(135deg, #0e2035 0%, #162d4a 50%, #0e2035 100%); }
+    .ph-3 { background: linear-gradient(135deg, #131e30 0%, #1c2e48 50%, #131e30 100%); }
+    .ph-4 { background: linear-gradient(135deg, #152038 0%, #1e3050 50%, #152038 100%); }
+    .ph-5 { background: linear-gradient(135deg, #0f1e32 0%, #182b45 50%, #0f1e32 100%); }
+
+    .ph-icon { opacity: 0.18; }
+
+    .ph-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      opacity: 0.5;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .catalog-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,184,75,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .catalog-card:hover::after { opacity: 1; }
+
+    .card-body {
+      padding: 1.6rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 4;
+    }
+
+    .card-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-desc { font-size: 0.88rem; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-detail {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .card-status {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+    }
+
+    .card-status.sold { color: var(--rust-light); }
+
+    .catalog-notice {
+      text-align: center;
+      padding: 2.5rem;
+      border: 1px dashed var(--border);
+      margin-top: 2px;
+    }
+
+    .catalog-notice p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── MATERIALS ── */
+    #materiais {
+      background: linear-gradient(160deg, var(--blue-mid) 0%, var(--blue-dark) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(45,82,120,0.25);
+      margin-top: 4rem;
+    }
+
+    .material-card {
+      background: rgba(14,30,48,0.7);
+      padding: 2.5rem 2rem;
+      border-top: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .material-card:hover { border-top-color: var(--gold-mid); }
+
+    .material-icon { margin-bottom: 1.5rem; opacity: 0.75; }
+
+    .material-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.7rem;
+    }
+
+    .material-desc { font-size: 0.88rem; color: var(--text-muted); font-style: italic; line-height: 1.65; }
+
+    /* ── INSTAGRAM ── */
+    .instagram-section {
+      text-align: center;
+      padding: 8rem 4rem;
+      background: var(--blue-deep);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .instagram-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(232,184,75,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .ig-label {
+      position: relative;
+      z-index: 2;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold-mid);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .ig-label::before, .ig-label::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-mid));
+    }
+
+    .ig-label::after { transform: scaleX(-1); }
+
+    .instagram-handle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin: 0 0 2rem;
+      display: block;
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .instagram-handle:hover { color: var(--gold-bright); }
+    .instagram-handle em { color: var(--gold-bright); font-style: normal; }
+
+    .ig-sub {
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin: 0 auto 4rem;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      background: rgba(45,82,120,0.2);
+      max-width: 860px;
+      margin: 0 auto 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ig-placeholder {
+      aspect-ratio: 1;
+      background: var(--blue-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ig-placeholder span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.45rem;
+      letter-spacing: 0.18em;
+      color: var(--border);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contato {
+      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-deep) 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: start;
+    }
+
+    .contact-info p {
+      font-size: 1.05rem;
+      color: var(--text);
+      font-weight: 300;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .contact-links { margin-top: 3rem; display: flex; flex-direction: column; }
+
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover { color: var(--gold-bright); }
+
+    .contact-link-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .faq { display: flex; flex-direction: column; }
+
+    .faq-item { padding: 1.6rem 0; border-bottom: 1px solid var(--border); }
+
+    .faq-q {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      margin-bottom: 0.7rem;
+    }
+
+    .faq-a { font-size: 0.95rem; color: var(--text-muted); font-style: italic; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--border-gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,22,36,0.8);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-bright);
+    }
+
+    .footer-logo span { color: var(--text-dim); }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .footer-ig {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-ig:hover { color: var(--gold-bright); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-footer { padding: 1.5rem; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      section { padding: 5rem 1.5rem; }
+      .about { grid-template-columns: 1fr; gap: 4rem; }
+      #contato { grid-template-columns: 1fr; gap: 4rem; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .catalog-card:nth-child(1) { grid-column: span 1; }
+      .materials-grid { grid-template-columns: 1fr 1fr; }
+      .instagram-grid { grid-template-columns: repeat(3, 1fr); }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .hero::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <nav class="nav">
+      <a class="logo-wrap" href="#">
+        <img class="logo-img" src="logo.png" alt="Vault.9 Studios" onerror="this.style.display='none'" />
+        <div class="logo-text">VAULT<span>.9 STUDIOS</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#sobre">Processo</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#materiais">Materiais</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Arte em Resina · Pintada à Mão</p>
+      <h1>ARTE<br/>QUE VOCÊ<br/><em>SEGURA.</em></h1>
+      <p class="hero-sub">Figuras de resina impressas em 3D e pintadas à mão, uma por uma. Cada peça carrega horas de detalhe e uma história.</p>
+      <div class="hero-cta">
+        <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="btn-primary">Ver no Instagram</a>
+        <a href="#catalogo" class="btn-ghost">Explorar Catálogo</a>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <div class="hero-stat"><strong>3D</strong>Impressão em Resina</div>
+      <div class="hero-stat"><strong>100%</strong>Pintado à Mão</div>
+      <div class="hero-stat"><strong>1:1</strong>Cada Peça É Única</div>
+    </div>
+  </header>
+
+  <div class="gold-line"></div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="dot">✦</span> RESINA UV</span>
+      <span class="marquee-item"><span class="dot">✦</span> IMPRESSÃO 3D</span>
+      <span class="marquee-item"><span class="dot">✦</span> PINTURA À MÃO</span>
+      <span class="marquee-item"><span class="dot">✦</span> EDIÇÃO LIMITADA</span>
+      <span class="marquee-item"><span class="dot">✦</span> ARTE COLECIONÁVEL</span>
+      <span class="marquee-item"><span class="dot">✦</span> SOB ENCOMENDA</span>
+      <span class="marquee-item"><span class="dot">✦</span> VAULT.9 STUDIOS</span>
+      <span class="marquee-item"><span class="dot">✦</span> RESINA UV</span>
+      <span class="marquee-item"><span class="dot">✦</span> IMPRESSÃO 3D</span>
+      <span class="marquee-item"><span class="dot">✦</span> PINTURA À MÃO</span>
+      <span class="marquee-item"><span class="dot">✦</span> EDIÇÃO LIMITADA</span>
+      <span class="marquee-item"><span class="dot">✦</span> ARTE COLECIONÁVEL</span>
+      <span class="marquee-item"><span class="dot">✦</span> SOB ENCOMENDA</span>
+      <span class="marquee-item"><span class="dot">✦</span> VAULT.9 STUDIOS</span>
+    </div>
+  </div>
+  <div class="gold-line"></div>
+
+  <section id="sobre">
+    <div class="about">
+      <div class="about-text">
+        <div class="section-label">Sobre o Estúdio</div>
+        <h2>DO ARQUIVO<br/>DIGITAL À<br/><em>VIDA REAL.</em></h2>
+        <p>O Vault.9 Studios nasceu da fusão entre tecnologia e artesanato. Usamos impressoras 3D de alta resolução com resina UV para dar forma a personagens, criaturas e figuras com nível de detalhe cirúrgico.</p>
+        <p>Mas a mágica acontece <strong>depois da impressão</strong>. Cada peça é curada, lixada e pintada à mão com tintas acrílicas, pigmentos e técnicas de sombreamento que transformam resina em arte.</p>
+        <p>Seja para coleção, presente ou cenário de RPG — fazemos sob encomenda com sua ideia ou a partir do nosso portfólio.</p>
+      </div>
+      <div class="about-visual">
+        <div class="section-label">O Processo</div>
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Modelagem 3D</div>
+            <div class="step-desc">Seleção ou criação do arquivo digital — detalhes em escala de milímetros.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">Impressão em Resina</div>
+            <div class="step-desc">Impressora MSLA com resina UV de alta definição. Camadas de 0.05mm.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">Cura & Acabamento</div>
+            <div class="step-desc">Limpeza, cura em câmara UV e lixamento progressivo para superfície perfeita.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">Pintura Artesanal</div>
+            <div class="step-desc">Camadas de primer, base, sombreamento, highlights e verniz de proteção final.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <div class="catalog-header">
+      <div>
+        <div class="section-label">Catálogo</div>
+        <h2>PEÇAS EM<br/><em>DESTAQUE</em></h2>
+      </div>
+      <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="btn-ghost">Ver Tudo no Instagram →</a>
+    </div>
+
+    <div class="catalog-grid">
+      <div class="catalog-card">
+        <div class="card-img">
+          <!-- <img src="fotos/peca-01.jpg" alt="Personagem Customizado"> -->
+          <div class="card-placeholder ph-1">
+            <svg class="ph-icon" width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <path d="M28 6L37 21L54 24L42 36L45 52L28 44L11 52L14 36L2 24L19 21Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+            </svg>
+            <span class="ph-label">Foto principal aqui</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Peça em Destaque</div>
+          <div class="card-title">Personagem Customizado</div>
+          <div class="card-desc">Encomenda personalizada baseada no personagem favorito. Pintura com técnica NMM e pigmentos metálicos.</div>
+          <div class="card-footer">
+            <span class="card-detail">Resina UV · Pintado à Mão</span>
+            <span class="card-status">Disponível</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="card-img">
+          <div class="card-placeholder ph-2">
+            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <circle cx="22" cy="18" r="10" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              <path d="M12 38 Q22 30 32 38 L36 44 H8 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+            </svg>
+            <span class="ph-label">Foto aqui</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Coleção</div>
+          <div class="card-title">Busto Fantasia</div>
+          <div class="card-desc">Busto escala 1:8, ideal para vitrine. Sombreamento profundo e lavagem de tinta.</div>
+          <div class="card-footer">
+            <span class="card-detail">~15cm · Escala 1:8</span>
+            <span class="card-status">Sob Encomenda</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="card-img">
+          <div class="card-placeholder ph-3">
+            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <rect x="8" y="6" width="28" height="36" rx="3" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              <path d="M15 20 L29 20 M15 28 L24 28" stroke="#e8b84b" stroke-width="1.2"/>
+            </svg>
+            <span class="ph-label">Foto aqui</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">RPG & Miniaturas</div>
+          <div class="card-title">Mini de Mesa</div>
+          <div class="card-desc">Escala 28mm, compatível com D&D e Pathfinder. Base magnética opcional.</div>
+          <div class="card-footer">
+            <span class="card-detail">28mm · Base inclusa</span>
+            <span class="card-status">Disponível</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="card-img">
+          <div class="card-placeholder ph-4">
+            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <path d="M22 4 L42 38 H2 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              <circle cx="22" cy="26" r="6" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+            </svg>
+            <span class="ph-label">Foto aqui</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Encomenda Especial</div>
+          <div class="card-title">Criatura Fantástica</div>
+          <div class="card-desc">Dragão, demônio, golem — modelos complexos com olhos de resina cristalina.</div>
+          <div class="card-footer">
+            <span class="card-detail">Alta Complexidade</span>
+            <span class="card-status sold">Consulte</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-card">
+        <div class="card-img">
+          <div class="card-placeholder ph-5">
+            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <path d="M8 8 L36 8 L36 32 L22 42 L8 32 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              <path d="M22 8 L22 30" stroke="#e8b84b" stroke-width="1.2"/>
+            </svg>
+            <span class="ph-label">Foto aqui</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Presente</div>
+          <div class="card-title">Presente Exclusivo</div>
+          <div class="card-desc">Peça única em caixa especial com cartão personalizado. Presente inesquecível.</div>
+          <div class="card-footer">
+            <span class="card-detail">Embalagem Especial</span>
+            <span class="card-status">Disponível</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="catalog-notice">
+      <p>📷 Substitua os espaços cinzas pelas suas fotos — veja o README para instruções</p>
+    </div>
+  </section>
+
+  <section id="materiais">
+    <div class="section-label">Qualidade</div>
+    <h2>MATERIAIS &<br/><em>TÉCNICAS</em></h2>
+    <div class="materials-grid">
+      <div class="material-card">
+        <svg class="material-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="4" width="40" height="40" rx="3" stroke="#e8b84b" stroke-width="1.4" fill="none"/>
+          <path d="M16 24 H32 M24 16 V32" stroke="#e8b84b" stroke-width="1.4"/>
+          <circle cx="24" cy="24" r="6" stroke="#d4941a" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="material-title">Resina UV</div>
+        <div class="material-desc">Alta resolução com 0.05mm por camada. Durável, rígida e pronta para pintura.</div>
+      </div>
+      <div class="material-card">
+        <svg class="material-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="18" stroke="#e8b84b" stroke-width="1.4" fill="none"/>
+          <path d="M24 10 Q36 18 36 24 Q36 34 24 38 Q12 34 12 24 Q12 18 24 10Z" stroke="#d4941a" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="material-title">Tintas Acrílicas</div>
+        <div class="material-desc">Paleta profissional. Wet blending, drybrushing e glazing para profundidade real.</div>
+      </div>
+      <div class="material-card">
+        <svg class="material-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M8 40 L24 6 L40 40 Z" stroke="#e8b84b" stroke-width="1.4" fill="none"/>
+          <path d="M15 30 H33" stroke="#d4941a" stroke-width="1.4"/>
+        </svg>
+        <div class="material-title">Primer & Verniz</div>
+        <div class="material-desc">Primer de aderência especial para resina + verniz matte, satin ou gloss.</div>
+      </div>
+      <div class="material-card">
+        <svg class="material-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M10 38 Q24 8 38 38" stroke="#e8b84b" stroke-width="1.4" fill="none"/>
+          <circle cx="24" cy="28" r="7" stroke="#d4941a" stroke-width="1.4" fill="none"/>
+          <circle cx="24" cy="28" r="2" fill="#e8b84b"/>
+        </svg>
+        <div class="material-title">Acabamentos Extras</div>
+        <div class="material-desc">Olhos de resina, pigmentos perolados, folha de ouro, ferrugem e oxidação reais.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-line"></div>
+  <div class="instagram-section">
+    <div class="ig-label">Nos siga</div>
+    <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="instagram-handle">
+      @vault.9<em>studios</em>
+    </a>
+    <p class="ig-sub">Acompanhe o processo de pintura, novos projetos e peças prontas no nosso Instagram.</p>
+    <div class="instagram-grid">
+      <div class="ig-placeholder"><span>foto</span></div>
+      <div class="ig-placeholder"><span>foto</span></div>
+      <div class="ig-placeholder"><span>foto</span></div>
+      <div class="ig-placeholder"><span>foto</span></div>
+      <div class="ig-placeholder"><span>foto</span></div>
+    </div>
+    <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="btn-primary">Seguir no Instagram</a>
+  </div>
+  <div class="gold-line"></div>
+
+  <section id="contato">
+    <div class="contact-info">
+      <div class="section-label">Contato</div>
+      <h2>FAÇA SUA<br/><em>ENCOMENDA</em></h2>
+      <p>Aceitamos encomendas personalizadas. Me conta sua ideia pelo Instagram e a gente bate um papo sobre o projeto, prazo e valores.</p>
+      <p>Cada peça é única — sem produção em massa, sem pressa.</p>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="contact-link">
+          <span class="contact-link-label">Instagram</span>
+          <span>@vault.9studios →</span>
+        </a>
+        <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="contact-link">
+          <span class="contact-link-label">Encomendas via DM</span>
+          <span>Mensagem Direta →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="faq">
+      <div class="section-label">Dúvidas Frequentes</div>
+      <div class="faq-item">
+        <div class="faq-q">Qual o prazo de entrega?</div>
+        <div class="faq-a">Miniaturas simples: 2–3 semanas. Peças complexas: 4–6 semanas. Combinamos tudo antes de confirmar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Vocês fazem qualquer personagem?</div>
+        <div class="faq-a">Dependendo da disponibilidade de arquivo 3D ou possibilidade de modelagem. Manda referências e avaliamos juntos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">As peças são para uso ou apenas exposição?</div>
+        <div class="faq-a">Resistentes para vitrine. Para RPG de mesa, aplicamos verniz extra resistente mediante solicitação.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Fazem envio para todo o Brasil?</div>
+        <div class="faq-a">Sim! Embalagem reforçada para todo o território nacional. Consulte o frete pelo Instagram.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-line"></div>
+  <footer>
+    <div class="footer-logo">VAULT<span>.9 STUDIOS</span></div>
+    <div class="footer-copy">© 2025 Vault.9 Studios · Arte em Resina Impressa e Pintada à Mão</div>
+    <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="footer-ig">@vault.9studios ↗</a>
+  </footer>
+
+</body>
+</html>
