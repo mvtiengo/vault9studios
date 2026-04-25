@@ -452,25 +452,28 @@
       position: relative;
     }
 
-    /* Altura generosa para mostrar figura inteira no destaque */
+    /* Altura para mostrar figura inteira — proporção 3:4 da foto */
     .catalog-card:nth-child(1) .card-img {
-      height: 580px;
+      aspect-ratio: 3 / 4;
+      height: auto;
     }
 
     /* Cards pequenos */
     .catalog-right .catalog-card .card-img {
-      height: 200px;
+      aspect-ratio: 1 / 1;
+      height: auto;
     }
 
     .catalog-right .card-placeholder {
-      height: 200px;
+      aspect-ratio: 1 / 1;
+      height: auto;
     }
 
     .card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
       display: block;
     }
@@ -833,10 +836,10 @@
       #contato { grid-template-columns: 1fr; gap: 4rem; }
       .catalog-grid { grid-template-columns: 1fr; }
       .catalog-card:nth-child(1) { grid-row: span 1; }
-      .catalog-card:nth-child(1) .card-img { height: 400px; }
+      .catalog-card:nth-child(1) .card-img { aspect-ratio: 3 / 4; height: auto; }
       .catalog-right { grid-column: 1; grid-row: auto; grid-template-columns: 1fr 1fr; }
       .catalog-right .catalog-card .card-img,
-      .catalog-right .card-placeholder { height: 150px; }
+      .catalog-right .card-placeholder { aspect-ratio: 1 / 1; height: auto; }
       .materials-grid { grid-template-columns: 1fr 1fr; }
       .instagram-grid { grid-template-columns: repeat(3, 1fr); }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
@@ -1164,7 +1167,7 @@
   <div class="gold-line"></div>
   <footer>
     <div class="footer-logo">VAULT<span>.9 STUDIOS</span></div>
-    <div class="footer-copy">© 2025 Vault.9 Studios · Arte em Resina Impressa e Pintada à Mão</div>
+    <div class="footer-copy">© 2026 Vault.9 Studios · Arte em Resina Impressa e Pintada à Mão</div>
     <a href="https://www.instagram.com/vault.9studios/" target="_blank" class="footer-ig">@vault.9studios ↗</a>
   </footer>
 
