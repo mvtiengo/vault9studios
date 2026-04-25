@@ -420,7 +420,7 @@
 
     .catalog-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 2px;
       background: rgba(45,82,120,0.25);
     }
@@ -432,21 +432,45 @@
       cursor: pointer;
     }
 
-    .catalog-card:nth-child(1) { grid-column: span 2; }
+    /* Card destaque ocupa coluna esquerda, 2 linhas */
+    .catalog-card:nth-child(1) {
+      grid-row: span 2;
+    }
+
+    /* 4 cards menores em sub-grid 2x2 na coluna direita */
+    .catalog-right {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
 
     .card-img {
       width: 100%;
-      aspect-ratio: 4/3;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
 
-    .catalog-card:nth-child(1) .card-img { aspect-ratio: 16/7; }
+    /* Altura generosa para mostrar figura inteira no destaque */
+    .catalog-card:nth-child(1) .card-img {
+      height: 580px;
+    }
+
+    /* Cards pequenos */
+    .catalog-right .catalog-card .card-img {
+      height: 200px;
+    }
+
+    .catalog-right .card-placeholder {
+      height: 200px;
+    }
 
     .card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
       display: block;
     }
@@ -808,7 +832,11 @@
       .about { grid-template-columns: 1fr; gap: 4rem; }
       #contato { grid-template-columns: 1fr; gap: 4rem; }
       .catalog-grid { grid-template-columns: 1fr; }
-      .catalog-card:nth-child(1) { grid-column: span 1; }
+      .catalog-card:nth-child(1) { grid-row: span 1; }
+      .catalog-card:nth-child(1) .card-img { height: 400px; }
+      .catalog-right { grid-column: 1; grid-row: auto; grid-template-columns: 1fr 1fr; }
+      .catalog-right .catalog-card .card-img,
+      .catalog-right .card-placeholder { height: 150px; }
       .materials-grid { grid-template-columns: 1fr 1fr; }
       .instagram-grid { grid-template-columns: repeat(3, 1fr); }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
@@ -923,9 +951,11 @@
     </div>
 
     <div class="catalog-grid">
+
+      <!-- CARD DESTAQUE — coluna esquerda, altura total -->
       <div class="catalog-card">
         <div class="card-img">
-          <img src="fotos/peca-01.png" alt="Personagem Customizado — Jill Valentine" />
+          <img src="fotos/peca-01.png" alt="Jill Valentine — S.T.A.R.S." />
         </div>
         <div class="card-body">
           <div class="card-tag">Peça em Destaque</div>
@@ -933,94 +963,99 @@
           <div class="card-desc">Figura em resina UV com pintura à mão completa. Detalhes no uniforme, patches, coldre e expressão facial com técnica de NMM e blending de pele.</div>
           <div class="card-footer">
             <span class="card-detail">Resina UV · Pintado à Mão</span>
-            <span class="card-status">Vendida</span>
+            <span class="card-status sold">Vendida</span>
           </div>
         </div>
       </div>
 
-      <div class="catalog-card">
-        <div class="card-img">
-          <div class="card-placeholder ph-2">
-            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
-              <circle cx="22" cy="18" r="10" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              <path d="M12 38 Q22 30 32 38 L36 44 H8 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-            </svg>
-            <span class="ph-label">Foto aqui</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Coleção</div>
-          <div class="card-title">Busto Fantasia</div>
-          <div class="card-desc">Busto escala 1:8, ideal para vitrine. Sombreamento profundo e lavagem de tinta.</div>
-          <div class="card-footer">
-            <span class="card-detail">~15cm · Escala 1:8</span>
-            <span class="card-status">Sob Encomenda</span>
-          </div>
-        </div>
-      </div>
+      <!-- 4 CARDS MENORES — coluna direita em grade 2x2 -->
+      <div class="catalog-right">
 
-      <div class="catalog-card">
-        <div class="card-img">
-          <div class="card-placeholder ph-3">
-            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
-              <rect x="8" y="6" width="28" height="36" rx="3" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              <path d="M15 20 L29 20 M15 28 L24 28" stroke="#e8b84b" stroke-width="1.2"/>
-            </svg>
-            <span class="ph-label">Foto aqui</span>
+        <div class="catalog-card">
+          <div class="card-img">
+            <div class="card-placeholder ph-2">
+              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
+                <circle cx="22" cy="18" r="10" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+                <path d="M12 38 Q22 30 32 38 L36 44 H8 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              </svg>
+              <span class="ph-label">fotos/peca-02.png</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Coleção</div>
+            <div class="card-title">Busto Fantasia</div>
+            <div class="card-desc">Busto escala 1:8. Sombreamento profundo e lavagem de tinta.</div>
+            <div class="card-footer">
+              <span class="card-detail">~15cm · 1:8</span>
+              <span class="card-status">Sob Encomenda</span>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">RPG & Miniaturas</div>
-          <div class="card-title">Mini de Mesa</div>
-          <div class="card-desc">Escala 28mm, compatível com D&D e Pathfinder. Base magnética opcional.</div>
-          <div class="card-footer">
-            <span class="card-detail">28mm · Base inclusa</span>
-            <span class="card-status">Disponível</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="catalog-card">
-        <div class="card-img">
-          <div class="card-placeholder ph-4">
-            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
-              <path d="M22 4 L42 38 H2 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              <circle cx="22" cy="26" r="6" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-            </svg>
-            <span class="ph-label">Foto aqui</span>
+        <div class="catalog-card">
+          <div class="card-img">
+            <div class="card-placeholder ph-3">
+              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
+                <rect x="8" y="6" width="28" height="36" rx="3" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+                <path d="M15 20 L29 20 M15 28 L24 28" stroke="#e8b84b" stroke-width="1.2"/>
+              </svg>
+              <span class="ph-label">fotos/peca-03.png</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">RPG & Miniaturas</div>
+            <div class="card-title">Mini de Mesa</div>
+            <div class="card-desc">Escala 28mm, compatível com D&D e Pathfinder.</div>
+            <div class="card-footer">
+              <span class="card-detail">28mm · Base inclusa</span>
+              <span class="card-status">Disponível</span>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Encomenda Especial</div>
-          <div class="card-title">Criatura Fantástica</div>
-          <div class="card-desc">Dragão, demônio, golem — modelos complexos com olhos de resina cristalina.</div>
-          <div class="card-footer">
-            <span class="card-detail">Alta Complexidade</span>
-            <span class="card-status sold">Consulte</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="catalog-card">
-        <div class="card-img">
-          <div class="card-placeholder ph-5">
-            <svg class="ph-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
-              <path d="M8 8 L36 8 L36 32 L22 42 L8 32 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
-              <path d="M22 8 L22 30" stroke="#e8b84b" stroke-width="1.2"/>
-            </svg>
-            <span class="ph-label">Foto aqui</span>
+        <div class="catalog-card">
+          <div class="card-img">
+            <div class="card-placeholder ph-4">
+              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
+                <path d="M22 4 L42 38 H2 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+                <circle cx="22" cy="26" r="6" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+              </svg>
+              <span class="ph-label">fotos/peca-04.png</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Encomenda Especial</div>
+            <div class="card-title">Criatura Fantástica</div>
+            <div class="card-desc">Dragão, demônio, golem — modelos complexos com olhos de resina.</div>
+            <div class="card-footer">
+              <span class="card-detail">Alta Complexidade</span>
+              <span class="card-status sold">Consulte</span>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Presente</div>
-          <div class="card-title">Presente Exclusivo</div>
-          <div class="card-desc">Peça única em caixa especial com cartão personalizado. Presente inesquecível.</div>
-          <div class="card-footer">
-            <span class="card-detail">Embalagem Especial</span>
-            <span class="card-status">Disponível</span>
+
+        <div class="catalog-card">
+          <div class="card-img">
+            <div class="card-placeholder ph-5">
+              <svg class="ph-icon" width="36" height="36" viewBox="0 0 44 44" fill="none">
+                <path d="M8 8 L36 8 L36 32 L22 42 L8 32 Z" stroke="#e8b84b" stroke-width="1.2" fill="none"/>
+                <path d="M22 8 L22 30" stroke="#e8b84b" stroke-width="1.2"/>
+              </svg>
+              <span class="ph-label">fotos/peca-05.png</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Presente</div>
+            <div class="card-title">Presente Exclusivo</div>
+            <div class="card-desc">Peça única em caixa especial com cartão personalizado.</div>
+            <div class="card-footer">
+              <span class="card-detail">Embalagem Especial</span>
+              <span class="card-status">Disponível</span>
+            </div>
           </div>
         </div>
-      </div>
+
+      </div><!-- /catalog-right -->
     </div>
 
     <div class="catalog-notice">
