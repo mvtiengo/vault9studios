@@ -20,21 +20,17 @@
       --blue-steel:  #2d5278;
       --blue-light:  #3d6a94;
       --blue-muted:  #4a7ba8;
-
       --gold-bright: #e8b84b;
       --gold-mid:    #d4941a;
       --gold-dark:   #a8720f;
       --gold-pale:   #f0cc7a;
       --gold-dim:    #7a5810;
-
       --rust:        #8b3a1a;
       --rust-light:  #b54e25;
-
       --text:        #c8daea;
       --text-muted:  #6a8aaa;
       --text-dim:    #3a5570;
       --white:       #e8f0f8;
-
       --border:      rgba(45, 82, 120, 0.4);
       --border-gold: rgba(232, 184, 75, 0.3);
     }
@@ -406,7 +402,13 @@
 
     .step-desc { font-size: 0.92rem; color: var(--text-muted); font-style: italic; }
 
-    /* ── CATALOG ── */
+    /* ══════════════════════════════════════
+       CATALOG — layout definitivo
+       Coluna esquerda: card destaque (flex)
+       Coluna direita:  grade 2×2 fixa
+       A altura total é ditada pelos 4 cards
+       pequenos (2 linhas × aspect-ratio 1:1)
+    ══════════════════════════════════════ */
     #catalogo { background: var(--blue-deep); border-bottom: 1px solid var(--border); }
 
     .catalog-header {
@@ -423,6 +425,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 2px;
       background: rgba(45,82,120,0.25);
+      overflow: hidden;
     }
 
     .catalog-card {
@@ -430,85 +433,80 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
+      isolation: isolate;
     }
 
-    /* Card destaque ocupa coluna esquerda, 2 linhas */
+    /* Card destaque: flex-column para foto crescer, texto fixo na base */
     .catalog-card:nth-child(1) {
-      grid-row: span 2;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* 4 cards menores em sub-grid 2x2 na coluna direita */
+    /* Foto cresce para preencher todo o espaço acima do card-body */
+    .catalog-card:nth-child(1) .card-img {
+      flex: 1;
+      min-height: 0;
+      position: relative; /* necessário para o absolute interno */
+    }
+
+    /* A <img> preenche o container via absolute — sem altura própria */
+    .catalog-card:nth-child(1) .card-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    .catalog-card:nth-child(1):hover .card-img img { transform: scale(1.05); }
+
+    /* Gradiente suave na base da foto do destaque */
+    .catalog-card:nth-child(1) .card-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to top, var(--blue-dark), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Grade 2×2 na coluna direita */
     .catalog-right {
-      grid-column: 2;
-      grid-row: 1 / span 2;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2px;
+      overflow: hidden;
     }
 
+    /* card-img genérico */
     .card-img {
       width: 100%;
       overflow: hidden;
       position: relative;
+      display: block;
     }
 
-    /* Altura para mostrar figura inteira — proporção 3:4 da foto */
-    .catalog-card:nth-child(1) .card-img {
-      aspect-ratio: 3 / 4;
-      height: auto;
-    }
-
-    /* Cards pequenos */
+    /* Cards pequenos: quadrado — define a altura total da grid */
     .catalog-right .catalog-card .card-img {
       aspect-ratio: 1 / 1;
-      height: auto;
     }
 
-    .catalog-right .card-placeholder {
-      aspect-ratio: 1 / 1;
-      height: auto;
-    }
-
-    .card-img img {
+    /* Imagens dos cards pequenos */
+    .catalog-right .catalog-card .card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 15%;
       transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
       display: block;
     }
 
-    .catalog-card:hover .card-img img { transform: scale(1.05); }
+    .catalog-right .catalog-card:hover .card-img img { transform: scale(1.05); }
 
-    .card-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .ph-1 { background: linear-gradient(135deg, #152840 0%, #1e3a5a 50%, #152840 100%); }
-    .ph-2 { background: linear-gradient(135deg, #0e2035 0%, #162d4a 50%, #0e2035 100%); }
-    .ph-3 { background: linear-gradient(135deg, #131e30 0%, #1c2e48 50%, #131e30 100%); }
-    .ph-4 { background: linear-gradient(135deg, #152038 0%, #1e3050 50%, #152038 100%); }
-    .ph-5 { background: linear-gradient(135deg, #0f1e32 0%, #182b45 50%, #0f1e32 100%); }
-
-    .ph-icon { opacity: 0.18; }
-
-    .ph-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.5rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--blue-light);
-      opacity: 0.5;
-      text-align: center;
-      padding: 0 1rem;
-    }
-
+    /* Shimmer dourado no hover */
     .catalog-card::after {
       content: '';
       position: absolute;
@@ -575,21 +573,6 @@
 
     .card-status.sold { color: var(--rust-light); }
 
-    .catalog-notice {
-      text-align: center;
-      padding: 2.5rem;
-      border: 1px dashed var(--border);
-      margin-top: 2px;
-    }
-
-    .catalog-notice p {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
     /* ── MATERIALS ── */
     #materiais {
       background: linear-gradient(160deg, var(--blue-mid) 0%, var(--blue-dark) 100%);
@@ -638,11 +621,9 @@
     .instagram-section::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%,-50%);
-      width: 600px;
-      height: 600px;
+      width: 600px; height: 600px;
       border-radius: 50%;
       background: radial-gradient(ellipse, rgba(232,184,75,0.06) 0%, transparent 70%);
       pointer-events: none;
@@ -666,8 +647,7 @@
     .ig-label::before, .ig-label::after {
       content: '';
       display: block;
-      width: 60px;
-      height: 1px;
+      width: 60px; height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold-mid));
     }
 
@@ -708,23 +688,6 @@
       margin: 0 auto 4rem;
       position: relative;
       z-index: 2;
-    }
-
-    .ig-placeholder {
-      aspect-ratio: 1;
-      background: var(--blue-dark);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ig-placeholder span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.45rem;
-      letter-spacing: 0.18em;
-      color: var(--border);
-      text-transform: uppercase;
     }
 
     .ig-photo {
@@ -853,11 +816,19 @@
       .about { grid-template-columns: 1fr; gap: 4rem; }
       #contato { grid-template-columns: 1fr; gap: 4rem; }
       .catalog-grid { grid-template-columns: 1fr; }
-      .catalog-card:nth-child(1) { grid-row: span 1; }
-      .catalog-card:nth-child(1) .card-img { aspect-ratio: 3 / 4; height: auto; }
-      .catalog-right { grid-column: 1; grid-row: auto; grid-template-columns: 1fr 1fr; }
-      .catalog-right .catalog-card .card-img,
-      .catalog-right .card-placeholder { aspect-ratio: 1 / 1; height: auto; }
+      /* No mobile o destaque volta a ter aspect-ratio normal */
+      .catalog-card:nth-child(1) { display: block; }
+      .catalog-card:nth-child(1) .card-img {
+        position: relative;
+        flex: none;
+        aspect-ratio: 3 / 4;
+        height: auto;
+      }
+      .catalog-card:nth-child(1) .card-img img {
+        position: absolute;
+        inset: 0;
+      }
+      .catalog-right { grid-template-columns: 1fr 1fr; }
       .materials-grid { grid-template-columns: 1fr 1fr; }
       .instagram-grid { grid-template-columns: repeat(3, 1fr); }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
@@ -973,7 +944,7 @@
 
     <div class="catalog-grid">
 
-      <!-- CARD DESTAQUE — coluna esquerda, altura total -->
+      <!-- CARD DESTAQUE — coluna esquerda, preenche a altura dos 4 cards -->
       <div class="catalog-card">
         <div class="card-img">
           <img src="fotos/peca-01.png" alt="Jill Valentine — S.T.A.R.S." />
@@ -989,7 +960,7 @@
         </div>
       </div>
 
-      <!-- 4 CARDS MENORES — coluna direita em grade 2x2 -->
+      <!-- 4 CARDS MENORES — grade 2×2, definem a altura total -->
       <div class="catalog-right">
 
         <div class="catalog-card">
